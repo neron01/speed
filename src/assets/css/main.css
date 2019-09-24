@@ -1,0 +1,12 @@
+@font-face {
+  font-family: "Rubik-Regular";
+  font-weight: normal;
+  src: url("../fonts/Rubik-Regular.ttf");
+}
+html, body
+{
+  font-family: "Rubik-Regular", "Source Sans Pro", Arial, sans-serif;
+}
+.v-application {
+  font-family: "Rubik-Regular", "Source Sans Pro", Arial, sans-serif !important;
+}
