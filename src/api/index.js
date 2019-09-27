@@ -50,8 +50,8 @@ require('./auth_config')(passport)
   // });
 
 
-// mongoose.connect(config.dbURLProd, config.dbOption)
-mongoose.connect(config.dbURL)
+mongoose.connect(config.dbURLProd, config.dbOption)
+// mongoose.connect(config.dbURL)
 
 // // Set up DB
 // mongoose
