@@ -14,7 +14,8 @@
     "tslint:fix": "tslint -p tsconfig.json --fix \"./src/**/*.{d.ts,ts,tsx}\"",
     "prettier:base": "prettier --config ./.prettierrc",
     "prettier:check": "npm run prettier:base -- --list-different \"./src/**/*.{d.ts,ts,tsx}\"",
-    "prettier:write": "npm run prettier:base -- --write \"**/*.{vue,d.ts,ts,tsx}\""
+    "prettier:write": "npm run prettier:base -- --write \"**/*.{vue,d.ts,ts,tsx}\"",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
