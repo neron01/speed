@@ -48,6 +48,9 @@ module.exports = {
     // '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify'
   ],
+  axios: {
+    baseURL: 'https://speed54.herokuapp.com'
+  },
   /*
    ** Nuxt.js modules
    */
