@@ -3,6 +3,9 @@ export const DateUtils = {
     return `0${n}`.slice(-2)
   },
   formatDate(date: Date): string {
+    if (!date) {
+      return ''
+    }
     return (
       this.formatDigit(date.getDate()) +
       '.' +
@@ -14,6 +17,9 @@ export const DateUtils = {
     )
   },
   formatFull(d: string): string {
+    if (!d) {
+      return ''
+    }
     const date = new Date(d)
     return (
       date.getFullYear() +
@@ -33,12 +39,31 @@ export const DateUtils = {
   },
   beautyTime(timeMs: number): string {
     let result = timeMs / 1000
-    let measure = 'секунд'
-    if (result > 60 * 1000) {
-      result = timeMs / 60
-      measure = 'минут'
+    debugger;
+    if (result > 60) {
+      const min = Math.floor(result / 60)
+      const sec = Math.floor(result - min * 60)
+      return (
+        min +
+        ' ' +
+        this.getNumEnding(min, ['минута', 'минуты', 'минут']) +
+        ' ' +
+        sec +
+        ' ' +
+        this.getNumEnding(sec, ['секунда', 'секунды', 'секунд'])
+      )
+    } else {
+      return Math.round(result) + ' секунд'
     }
-    return result + ' ' + measure
+  },
+  getNumEnding(num: number, titles: string[]): string {
+    if (!titles) {
+      return ''
+    }
+    const cases = [2, 0, 1, 1, 1, 2]
+    return titles[
+      num % 100 > 4 && num % 100 < 20 ? 2 : cases[num % 10 < 5 ? num % 10 : 5]
+    ]
   },
   workingMinutesBetweenDates(startDate: Date, endDate: Date) {
     // Store minutes worked

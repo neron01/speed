@@ -1,52 +1,59 @@
 <template>
   <div class="wrapper">
     <a @click.prevent="modalShown = true">
-      {{ auth.authUser ? auth.authUser.email : 'Sign in' }} ▾
+      {{ auth.authUser ? auth.authUser.email : 'Войти' }} ▾
     </a>
     <div class="modal" v-if="modalShown">
-      <a @click.prevent="reset">Close</a> <br /><br />
+      <a @click.prevent="reset">Закрыть окно</a> <br /><br />
       <div v-if="auth.authUser">
-        <form v-if="mode.passwordRecovery">
-          <p class="error" v-if="form.error">{{ form.error }}</p>
-          <p>
-            Current password<input
-              type="password"
-              v-model="form.currentPassword"
-            />
-          </p>
-          <p>New password<input type="password" v-model="form.password" /></p>
-          <p>
-            New password (Again)<input
-              type="password"
-              v-model="form.passwordAgain"
-            />
-          </p>
-        </form>
-        <button @click.prevent="changePass">Change password</button><br />
-        <button @click.prevent="logout">Logout</button>
+<!--        <form v-if="mode.passwordRecovery">-->
+<!--          <p class="error" v-if="form.error">{{ form.error }}</p>-->
+<!--          <p>-->
+<!--            Current password<input-->
+<!--              type="password"-->
+<!--              v-model="form.currentPassword"-->
+<!--            />-->
+<!--          </p>-->
+<!--          <p>New password<input type="password" v-model="form.password" /></p>-->
+<!--          <p>-->
+<!--            New password (Again)<input-->
+<!--              type="password"-->
+<!--              v-model="form.passwordAgain"-->
+<!--            />-->
+<!--          </p>-->
+<!--        </form>-->
+<!--        <button @click.prevent="changePass">Change password</button><br />-->
+        <v-btn @click.prevent="logout">Выйти</v-btn>
       </div>
       <div v-else>
-        <form @submit.prevent="authSubmit">
+        <v-form @submit.prevent="authSubmit">
           <p class="error" v-if="form.error">{{ form.error }}</p>
-          <p>Email: <input type="text" v-model="form.email" name="email" /></p>
           <p>
-            Password:
-            <input type="password" v-model="form.password" name="password" />
+            <v-text-field
+              v-model="form.email"
+              label="Введите имя:"
+            ></v-text-field>
+          </p>
+          <p>
+            <v-text-field
+              v-model="form.password"
+              label="Пароль:"
+              type="password"
+            ></v-text-field>
           </p>
           <p v-if="mode.register">
-            Password (Again):
-            <input
-              type="password"
+            <v-text-field
               v-model="form.passwordAgain"
-              name="passwordAgain"
-            />
+              label="Повторите пароль:"
+              type="password"
+            ></v-text-field>
           </p>
-          <button type="submit">
-            {{ mode.register ? 'Create account' : 'Sign in' }}
-          </button>
-        </form>
+          <v-btn type="submit">
+            {{ mode.register ? 'Создать аккаунт' : 'Войти' }}
+          </v-btn>
+        </v-form>
         <a @click.prevent="mode.register = !mode.register" class="form-switch">
-          {{ mode.register ? 'Sign in' : 'Create account' }}
+          {{ mode.register ? 'Войти' : 'Создать аккаунт' }}
         </a>
       </div>
     </div>
@@ -64,11 +71,12 @@ a {
   position: relative;
 }
 .modal {
+  width: 250px;
+  background-color: white;
   position: absolute;
   right: -1px;
   top: -1px;
   border: 1px solid #888;
-  background: #ddd;
   padding: 0.4em 0.8em;
 }
 .modal form {

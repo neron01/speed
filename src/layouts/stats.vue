@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-content class="container">
-<!--      <div class="login-container"><login-form></login-form></div>-->
+      <client-only><loaders></loaders></client-only>
       <v-container fluid><nuxt /> </v-container>
     </v-content>
   </v-app>
@@ -9,14 +9,16 @@
 
 <script>
 import LoginForm from '~/components/LoginForm.vue'
+import Loaders from '~/components/Loaders.vue'
 
 export default {
   components: {
-    LoginForm
+    LoginForm,
+    Loaders,
   }
 }
 </script>
-<style>
+<style scoped>
 .login-container {
   position: fixed;
 }
@@ -26,4 +28,7 @@ export default {
   max-width: 100%;
   text-align: center;
 }
+  html, body {
+    overflow: hidden;
+  }
 </style>

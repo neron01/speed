@@ -36,13 +36,55 @@ app.use(passport.session())
 app.use(require('./routes/users'))
 app.use(require('./routes/reports'))
 app.use(require('./routes/auth'))
+app.use(require('./routes/game'))
 
 // Set up passport auth
 require('./auth_config')(passport)
 
+const connectionServerString = 'mongodb+srv://artem:mongo4me@cluster0-yuuae.gcp.mongodb.net/map?retryWrites=true';
+const connectionLocalString = 'mongodb://localhost:27017/map';
+
+
+  // mongoose.connect('mongodb+srv://some:some@cluster0-1ora5.mongodb.net/Cluster0?retryWrites=true');
+  // var db = mongoose.connection;
+  // db.on("error", console.error.bind(console, "connection error"));
+  // db.once("open", function(callback){
+  //   console.log("Connection Succeeded");
+  //   UserScheme.initUsers(UserScheme);
+  // });
+
+
+
 // Set up DB
-mongoose.connect(config.dbURL, config.dbOptions)
-mongoose.Promise = global.Promise
+mongoose
+  .connect('mongodb+srv://some:some@cluster-xrw5o.mongodb.net/', {
+    dbName: 'speed',
+    useNewUrlParser: true
+  })
+  .then((res, rej) => {
+    console.log('Some ~~~~~~~~~~~~~')
+    console.log(res)
+    console.log('!!!!!!!!!!!!!!!!!11')
+    console.log(rej)
+  })
+  .catch((err) => {
+    console.log('ЖОПА')
+    console.log(err)
+  })
+
+// const MongoClient = require('mongodb').MongoClient;
+// const uri = "mongodb+srv://some:some@cluster-xrw5o.mongodb.net/test?retryWrites=true&w=majority";
+// const client = new MongoClient(uri, { useNewUrlParser: true });
+// client.connect(err => {
+//   console.log('okoloko')
+//   console.log(err)
+//   const collection = client.db("speed").collection("speed");
+//   console.log('ZBC')
+//   // perform actions on the collection object
+//   client.close();
+// });
+
+// mongoose.Promise = global.Promise
 
 // app.use('/api/', router);
 //

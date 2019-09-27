@@ -1,3 +1,9 @@
 export default () => ({
-  reports: []
+  reports: [],
+  userStat: {
+    tasks: []
+  },
+  tasks: [],
+  tasks: [],
+  game: {},
 })

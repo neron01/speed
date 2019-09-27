@@ -1,4 +1,5 @@
 import task1 from './tasks/task1'
+import task2 from './tasks/task2'
 const request = require('request')
 
 export const checkTask = async (params) => {
@@ -16,16 +17,16 @@ export const checkTask = async (params) => {
   return true;
 }
 
+export const getTaskScope = (taskId) => {
+  let mapperElement = mapper[taskId];
+  return mapperElement? mapperElement.scope : 0;
+}
 export const getAllTasks = () => {
   // TODO
 }
 
 const runTest = async (testFunction, funcName, args, expectedResult) => {
   try {
-    console.log('testFunction = ' + testFunction)
-    console.log('funcName = ' + funcName)
-    console.log('args = ' + args)
-
     const response = await doRequest('https://rextester.com/rundotnet/Run', {
       formData: {
         LanguageChoiceWrapper: 23,
@@ -66,4 +67,4 @@ function doRequest(url, option) {
   })
 }
 
-export const mapper = [task1]
+export const mapper = [task1, task2]

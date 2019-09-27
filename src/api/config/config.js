@@ -1,4 +1,4 @@
 module.exports = {
     port: 8081,
-    dbURL: 'mongodb://localhost:27017/gherkincafe'
+    dbURL: 'mongodb+srv://someuser:someuser54@cluster0-1ora5.mongodb.net/Cluster0'
 };
