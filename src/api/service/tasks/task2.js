@@ -1,17 +1,25 @@
 export default {
-  title: 'Задача о бубликах',
+  title: 'Счастливый билет',
   id: 1,
   description:
-    'Зная длину бублика необходимо найти его радиус.',
-  funcName: 'findShort',
+    'Необходимо написать проверку числа, равна ли сумма его первых N цифр, сумме последних N цифр. Число на вход всегда кратно 2, и не пустое.',
+  funcName: 'checkNumber',
   tests: [
     {
-      args: "'bitcoin take over the world maybe who knows perhaps'",
-      result: '3'
+      args: "'233152'",
+      result: 'true'
+    },
+    {
+      args: "'1567'",
+      result: 'false'
+    },
+    {
+      args: "'15151515'",
+      result: 'true'
     }
   ],
   sample:
-    'Test.assertEquals(findShort("bitcoin take over the world maybe who knows perhaps"), 3);\n',
-  init: 'function findShort(s){\n\n}',
-  scope: 3
+    'Test.assertEquals(checkNumber("233152"), true);\nTest.assertEquals(checkNumber("1567"), false);\n',
+  init: 'function checkNumber(s){\n\n}',
+  scope: 5
 }

@@ -41,10 +41,6 @@ app.use(require('./routes/game'))
 // Set up passport auth
 require('./auth_config')(passport)
 
-const connectionServerString = 'mongodb+srv://artem:mongo4me@cluster0-yuuae.gcp.mongodb.net/map?retryWrites=true';
-const connectionLocalString = 'mongodb://localhost:27017/map';
-
-
   // mongoose.connect('mongodb+srv://some:some@cluster0-1ora5.mongodb.net/Cluster0?retryWrites=true');
   // var db = mongoose.connection;
   // db.on("error", console.error.bind(console, "connection error"));
@@ -54,42 +50,25 @@ const connectionLocalString = 'mongodb://localhost:27017/map';
   // });
 
 
+// mongoose.connect(config.dbURLProd, config.dbOption)
+mongoose.connect(config.dbURL)
 
-// Set up DB
-mongoose
-  .connect('mongodb+srv://some:some@cluster-xrw5o.mongodb.net/', {
-    dbName: 'speed',
-    useNewUrlParser: true
-  })
-  .then((res, rej) => {
-    console.log('Some ~~~~~~~~~~~~~')
-    console.log(res)
-    console.log('!!!!!!!!!!!!!!!!!11')
-    console.log(rej)
-  })
-  .catch((err) => {
-    console.log('ЖОПА')
-    console.log(err)
-  })
+// // Set up DB
+// mongoose
+//   .connect('mongodb+srv://some:some@cluster-xrw5o.mongodb.net/', config.dbOption)
+//   .then((res, rej) => {
+//     console.log('Some ~~~~~~~~~~~~~')
+//     console.log(res)
+//     console.log('!!!!!!!!!!!!!!!!!11')
+//     console.log(rej)
+//   })
+//   .catch((err) => {
+//     console.log('ЖОПА')
+//     console.log(err)
+//   })
 
-// const MongoClient = require('mongodb').MongoClient;
-// const uri = "mongodb+srv://some:some@cluster-xrw5o.mongodb.net/test?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true });
-// client.connect(err => {
-//   console.log('okoloko')
-//   console.log(err)
-//   const collection = client.db("speed").collection("speed");
-//   console.log('ZBC')
-//   // perform actions on the collection object
-//   client.close();
-// });
 
-// mongoose.Promise = global.Promise
-
-// app.use('/api/', router);
-//
-// app.listen(config.port,
-//     () => console.log(`Server start on port ${config.port} ...`));
+mongoose.Promise = global.Promise
 
 // Export the server middleware
 module.exports = {

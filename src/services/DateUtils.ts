@@ -34,12 +34,19 @@ export const DateUtils = {
     )
   },
   beautyTimes(startTime: string, endTime: string): string {
+    if (
+      startTime === null ||
+      startTime === undefined ||
+      endTime === null ||
+      endTime === undefined
+    ) {
+      return ''
+    }
     const deltaMs = new Date(endTime).getTime() - new Date(startTime).getTime()
     return this.beautyTime(deltaMs)
   },
   beautyTime(timeMs: number): string {
     let result = timeMs / 1000
-    debugger;
     if (result > 60) {
       const min = Math.floor(result / 60)
       const sec = Math.floor(result - min * 60)

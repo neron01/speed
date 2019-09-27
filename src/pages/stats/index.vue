@@ -18,6 +18,11 @@ export default {
   layout: 'stats',
   components: {
     Stats
+  },
+  head () {
+    return {
+      title: 'Статистика'
+    }
   }
 }
 </script>

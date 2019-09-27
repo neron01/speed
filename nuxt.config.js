@@ -7,7 +7,7 @@ module.exports = {
    ** Headers of the page
    */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
+    titleTemplate: '%s',
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
@@ -18,7 +18,7 @@ module.exports = {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/png', href: '/favicon-32x32.png' }]
   },
   /*
    ** Customize the progress-bar color
@@ -49,7 +49,7 @@ module.exports = {
     '@nuxtjs/vuetify'
   ],
   axios: {
-    baseURL: 'https://speed54.herokuapp.com'
+    // baseURL: 'https://speed54.herokuapp.com'
   },
   /*
    ** Nuxt.js modules

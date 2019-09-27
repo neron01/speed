@@ -9,9 +9,13 @@ export default {
     {
       args: "'bitcoin take over the world maybe who knows perhaps'",
       result: '3'
+    },
+    {
+      args: "'bitcoin world maybe perhaps'",
+      result: '5'
     }
   ],
   sample: 'Test.assertEquals(findShort("bitcoin take over the world maybe who knows perhaps"), 3);\n',
   init: 'function findShort(s){\n\n}',
-  scope: 5
+  scope: 3
 }

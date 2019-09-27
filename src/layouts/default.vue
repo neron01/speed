@@ -21,7 +21,7 @@ export default {
 </script>
 <style>
 .login-container {
-  position: fixed;
+  position: absolute;
   right: 30px;
   top: 30px;
   z-index: 9999999;

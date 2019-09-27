@@ -32,21 +32,41 @@
         </tbody>
       </template>
     </v-simple-table>
+    <br />
+    <br />
     <v-simple-table>
       <template v-slot:default>
         <thead>
-        <tr>
-          <th class="text-center">ID</th>
-          <th class="text-center">Имя</th>
-          <th class="text-center"></th>
-        </tr>
+          <th></th>
         </thead>
         <tbody>
-        <tr :key="user._id" v-for="user in users">
-          <td>{{ user._id }}</td>
-          <td>{{ user.email }}</td>
-          <td><v-btn @click="deleteUser(user._id)">Удалить</v-btn></td>
-        </tr>
+          <tr :key="user._id" v-for="user in users">
+            <td>
+              <v-expansion-panels>
+                <v-expansion-panel>
+                  <v-expansion-panel-header>
+                    <v-row>
+                      <v-col>{{ user._id }}</v-col>
+                      <v-col>{{ user.email }}</v-col>
+                      <v-col>
+                        <v-btn @click="deleteUser(user._id)">Удалить</v-btn>
+                      </v-col>
+                    </v-row>
+                  </v-expansion-panel-header>
+                  <v-expansion-panel-content>
+                    <v-row
+                      v-for="task in getTaskSolution(user._id)"
+                      :key="task.taskId"
+                      style="border-bottom: 1px solid gray;padding-bottom:10px;"
+                    >
+                      <v-col>{{ task.taskId }}</v-col>
+                      <v-col>{{ task.lastVariant }}</v-col>
+                    </v-row>
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
+            </td>
+          </tr>
         </tbody>
       </template>
     </v-simple-table>
@@ -62,9 +82,9 @@ import { DateUtils } from '~/services/DateUtils'
   // middleware: 'auth',
 })
 export default class extends Vue {
-
-  public games: any[] = [];
-  public users: any[] = [];
+  public games: any[] = []
+  public users: any[] = []
+  public userStats: any[] = []
 
   public formatDate(date: string): string {
     return DateUtils.formatFull(date)
@@ -113,17 +133,24 @@ export default class extends Vue {
   public async refreshData() {
     try {
       const { games } = await this.$axios.$get('/api/game')
-      const { users } = await this.$axios.$get('/api/auth');
+      const { users } = await this.$axios.$get('/api/auth')
       this.games = games
       this.users = users
     } catch {}
   }
 
+  getTaskSolution(userId: string) {
+    let userStat = this.userStats.find(
+      (userStat: any) => userStat.userId === userId
+    )
+    return userStat === undefined ? [] : userStat.tasks
+  }
   public async asyncData({ $axios }: any) {
     try {
-      const { games } = await $axios.$get('/api/game');
-      const { users } = await $axios.$get('/api/auth');
-      return { games, users }
+      const { games } = await $axios.$get('/api/game')
+      const { users } = await $axios.$get('/api/auth')
+      const { userStats = [] } = await $axios.$get('/api/stats')
+      return { games, users, userStats }
     } catch {
       return {}
     }

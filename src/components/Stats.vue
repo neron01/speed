@@ -1,16 +1,18 @@
 <template>
+  <div>
   <v-row
     v-if="
       this.$store.state.report.game === undefined ||
         this.$store.state.report.game.status === 'CREATED'
-    "
-  >
+    ">
     <v-col class="text-center">
       <h1>Игра скоро начнется</h1>
-      <div class="text-center qr_code">
-        <img src="../assets/img/qr_code.png" />
-      </div>
-      <h2>Для получения ссылки на игру отсканируйте qr код</h2>
+      <h4 style="font-weight: normal;display: inline;">
+        Для регистрации пройдите по ссылке
+      </h4>
+      <h3 style="display: inline;color: #954bff;">
+        http://bit.do/speed-code
+      </h3>
     </v-col>
   </v-row>
   <v-row v-else>
@@ -18,7 +20,10 @@
       <h1 v-show="this.$store.state.report.game.status === 'FINISHED'">
         Игра закончена!
       </h1>
-
+    </v-col>
+  </v-row>
+  <v-row>
+    <v-col>
       <v-simple-table style="width: 100%;">
         <template v-slot:default>
           <thead>
@@ -51,6 +56,7 @@
       </v-simple-table>
     </v-col>
   </v-row>
+  </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
@@ -70,26 +76,24 @@ export default class extends Vue {
       let taskNumber = 0
       this.userStats = userStats
         .map((userStat: any) => {
-          userStat.tasks.sort((t1: any, t2: any) => {
-            if (t1.taskId === t2.taskId) {
-              return t1.lastCommit < t2.lastCommit
-                ? -1
-                : t1.lastCommit > t2.lastCommit
-                ? 1
-                : 0
-            } else {
-              return t1.lastCommit < t2.lastCommit ? -1 : 1
-            }
-          })
           taskNumber = userStat.tasks.length
-
           userStat.scope = userStat.tasks.reduce(
             (sum: number, task: any) => sum + task.scope,
             0
           )
           return userStat
         })
-        .sort((stat1: any, stat2: any) => stat2.scope - stat1.scope)
+        .sort((stat1: any, stat2: any) => {
+          if (stat1.scope === stat2.scope) {
+            return stat1.lastCommit < stat2.lastCommit
+              ? -1
+              : stat2.lastCommit > stat1.lastCommit
+                ? 1
+                : 0
+          } else {
+            return stat2.scope < stat1.scope ? -1 : 1
+          }
+        })
       this.taskNumber = taskNumber
     } catch (e) {
       this.userStats = []
@@ -104,11 +108,6 @@ export default class extends Vue {
     return DateUtils.beautyTimes(this.$store.state.report.game.startTime, date)
   }
 
-  public head() {
-    return {
-      title: 'Users'
-    }
-  }
   async created() {
     this.polling = setInterval(async () => {
       this.loadStats()

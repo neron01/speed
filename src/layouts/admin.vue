@@ -18,7 +18,7 @@ export default {
 </script>
 <style>
 .login-container {
-  position: fixed;
+  position: absolute;
 }
 .container {
   margin: 0;

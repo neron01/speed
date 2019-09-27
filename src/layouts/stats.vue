@@ -20,7 +20,7 @@ export default {
 </script>
 <style scoped>
 .login-container {
-  position: fixed;
+  position: absolute;
 }
 .container {
   margin: 0;

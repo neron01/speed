@@ -4,7 +4,7 @@
   </span>
   <v-row v-else-if="this.$store.state.report.game.status === 'IN_PROGRESS'">
     <template v-if="selectedTask === null">
-      <v-col :key="task.id" v-for="task of this.$store.getters['report/completedTasks']">
+      <v-col style="min-width: 300px;" :key="task.id" v-for="task of this.$store.getters['report/completedTasks']">
         <v-card max-width="344" class="mx-auto">
           <v-card-title>{{ task.title }}</v-card-title>
           <div :class="['tag', task.status]">{{task.status}}</div>

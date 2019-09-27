@@ -5,5 +5,10 @@ export default {
   components: {
     Game,
     HeaderComp,
+  },
+  head () {
+    return {
+      title: 'New It Fest'
+    }
   }
 }
