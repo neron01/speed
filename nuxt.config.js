@@ -49,7 +49,7 @@ module.exports = {
     '@nuxtjs/vuetify'
   ],
   axios: {
-    baseURL: 'https://speed54.herokuapp.com'
+    baseURL: 'https://speed-code.herokuapp.com'
   },
   /*
    ** Nuxt.js modules
