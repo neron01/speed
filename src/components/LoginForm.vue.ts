@@ -28,7 +28,7 @@ export default class LoginForm extends Vue {
   public modalShown = false
   public mode = {
     passwordRecovery: false,
-    register: false
+    register: true
   }
 
   public reset() {
@@ -42,26 +42,20 @@ export default class LoginForm extends Vue {
     this.modalShown = false
     this.mode = {
       passwordRecovery: false,
-      register: false
+      register: true
     }
   }
   public async authSubmit() {
     try {
-      if (
-        this.mode.register &&
-        this.form.password !== this.form.passwordAgain
-      ) {
-        throw Error('Passwords should match')
-      }
       if (this.mode.register) {
         this.register({
           email: this.form.email,
-          password: this.form.password
+          password: this.form.email
         })
       } else {
         this.login({
           email: this.form.email,
-          password: this.form.password
+          password: this.form.email
         })
       }
       this.reset()
@@ -77,22 +71,5 @@ export default class LoginForm extends Vue {
       this.form.error = e.message
     }
   }
-  public async changePass() {
-    if (!this.mode.passwordRecovery) {
-      this.mode.passwordRecovery = true
-      return
-    }
-    try {
-      if (this.form.password !== this.form.passwordAgain) {
-        throw Error('Passwords should match')
-      }
-      await this.changePassword({
-        currentPassword: this.form.currentPassword,
-        newPassword: this.form.password
-      })
-      this.reset()
-    } catch (e) {
-      this.form.error = e.message
-    }
-  }
+
 }

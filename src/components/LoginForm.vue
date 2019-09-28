@@ -6,23 +6,6 @@
     <div class="modal" v-if="modalShown">
       <a @click.prevent="reset">Закрыть окно</a> <br /><br />
       <div v-if="auth.authUser">
-<!--        <form v-if="mode.passwordRecovery">-->
-<!--          <p class="error" v-if="form.error">{{ form.error }}</p>-->
-<!--          <p>-->
-<!--            Current password<input-->
-<!--              type="password"-->
-<!--              v-model="form.currentPassword"-->
-<!--            />-->
-<!--          </p>-->
-<!--          <p>New password<input type="password" v-model="form.password" /></p>-->
-<!--          <p>-->
-<!--            New password (Again)<input-->
-<!--              type="password"-->
-<!--              v-model="form.passwordAgain"-->
-<!--            />-->
-<!--          </p>-->
-<!--        </form>-->
-<!--        <button @click.prevent="changePass">Change password</button><br />-->
         <v-btn @click.prevent="logout">Выйти</v-btn>
       </div>
       <div v-else>
@@ -34,26 +17,12 @@
               label="Введите имя:"
             ></v-text-field>
           </p>
-          <p>
-            <v-text-field
-              v-model="form.password"
-              label="Пароль:"
-              type="password"
-            ></v-text-field>
-          </p>
-          <p v-if="mode.register">
-            <v-text-field
-              v-model="form.passwordAgain"
-              label="Повторите пароль:"
-              type="password"
-            ></v-text-field>
-          </p>
           <v-btn type="submit">
-            {{ mode.register ? 'Создать аккаунт' : 'Войти' }}
+            {{ mode.register ? 'Начать' : 'Войти' }}
           </v-btn>
         </v-form>
-        <a @click.prevent="mode.register = !mode.register" class="form-switch">
-          {{ mode.register ? 'Войти' : 'Создать аккаунт' }}
+        <a @click.prevent="mode.register = !mode.register" class="form-switch" style="font-size: 13px;">
+          {{ mode.register ? 'Войти, если есть аккаунт' : 'Создать аккаунт' }}
         </a>
       </div>
     </div>
