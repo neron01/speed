@@ -1,7 +1,56 @@
 <template>
-  <span v-if="this.$store.state.report.game === undefined || this.$store.state.report.game.status === 'CREATED'">
-    Вы авторизованы, ждите игра скоро начнется
-  </span>
+  <v-container v-if="this.$store.state.report.game === undefined || this.$store.state.report.game.status === 'CREATED'">
+    <h2>Вы авторизованы, ждите игра скоро начнется</h2>
+    <v-row>
+      <v-col class="text-left">
+        <v-row no-gutters>
+          <v-col>
+            <span style="font-size: 14px;">Задание:</span>
+            <span class="font-weight-bold">{{ testtaskTitle }}</span>
+          </v-col>
+        </v-row>
+        <v-row no-gutters><span>Описание:</span></v-row>
+        <v-row no-gutters>
+          <v-card>
+            <v-card-text>
+              <div class="text--primary">
+                {{ testtaskDescription }}
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-row>
+        <br />
+        <v-row no-gutters><span>Пример теста:</span></v-row>
+        <v-row no-gutters>
+          <client-only placeholder="Codemirror Loading...">
+            <codemirror
+              class="testSample"
+              v-model="testtaskSample"
+              :options="cmOption"
+            />
+          </client-only>
+        </v-row>
+      </v-col>
+      <v-col>
+        <div class="container2" style="width: 100%;height: 300px;">
+          <v-row no-gutters><span>Поле для ввода решения:</span></v-row>
+          <client-only placeholder="Codemirror Loading...">
+            <codemirror
+              class="codeResult codeResultTest"
+              v-model="testcodeVariant"
+              :options="cmOption"
+            />
+          </client-only>
+          <v-row style="padding: 10px;">
+            <v-btn @click="testsendToServer">Отправить результат</v-btn>
+            <span style="padding: 5px;" v-if="testtaskResult !== null">
+              Результат: {{ testtaskResult.currentStatus === true ? "Пройдено, переходите к следующей задаче" : "Не верно" }}
+            </span>
+          </v-row>
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
   <v-row v-else-if="this.$store.state.report.game.status === 'IN_PROGRESS'">
     <template v-if="selectedTask === null">
       <v-col style="min-width: 300px;" :key="task.id" v-for="task of this.$store.getters['report/completedTasks']">
@@ -74,7 +123,7 @@
   <v-row v-else-if="this.$store.state.report.game.status === 'FINISHED'">
     <span>Время вышло</span>
   </v-row>
-  <span v-else>Что-то пошло не так</span>
+  <span v-else>Идет загрузка</span>
 </template>
 
 <script lang="ts" src="./Game.vue.ts"></script>
@@ -94,6 +143,9 @@
 }
 .codeResult .CodeMirror {
   height: 550px;
+}
+.codeResultTest .CodeMirror {
+  height: 350px;
 }
 .scope-block {
   position: absolute;
