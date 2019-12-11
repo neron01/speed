@@ -50,6 +50,7 @@ require('./auth_config')(passport)
   // });
 
 
+// Первая строка для прода, вторая для локальной сборки
 mongoose.connect(config.dbURLProd, config.dbOption)
 // mongoose.connect(config.dbURL)
 
